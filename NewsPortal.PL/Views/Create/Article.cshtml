@@ -1,0 +1,80 @@
+﻿@model NewsPortal.BLL.Dtos.ArticleDto
+@{
+    ViewBag.Title = "Article [Create]";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="container">
+        <div class="row clearfix" style="width:70%;margin:auto">
+            <h1 style="margin-top:100px;text-align:center;font-family:'Palatino Linotype';color:darkblue">
+                Add New Article
+            </h1>
+            <div class="col">
+                <div class="card single_post" style="padding:12px">
+                    <div class="body">
+                        <form class="row clearfix">
+                            <div class="form-group">
+                                @Html.TextBoxFor(t => t.Title, new { placeholder = "Title:", @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Upload image", htmlAttributes: new { id = "lbl", @class = "control-label col-md-6" })
+                                <div class="col-md-10">
+                                    <input id="fileinput" type="file" accept=".jpg, .jpeg, .png, .icon, .ico, .gif">
+                                    <br />
+                                    <input type="button" id="btnUpload" value="Upload Photo" class="btn btn-success form-control-file" />
+                                    @Html.ValidationMessageFor(model => model.Image_Url, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.TextAreaFor(t => t.Text, new { placeholder = "Please type what you want...", @class = "form-control", rows = "8" })
+                            </div>
+                            <div style="margin-top:12px">
+                                <button type="submit" class="btn btn-block btn-primary">Create News</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#btnUpload').click(function () {
+
+                // Checking whether FormData is available in browser
+                if (window.FormData !== undefined) {
+
+                    var fileUpload = $("#fileinput").get(0);
+                    var files = fileUpload.files;
+
+                    // Create FormData object
+                    var fileData = new FormData();
+
+                    // Looping over all files and add it to FormData object
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append(files[i].name, files[i]);
+                    }
+
+                    $.ajax({
+                        url: '/Create/PhotoUpload',
+                        type: "POST",
+                        contentType: false,
+                        processData: false,
+                        data: fileData,
+                        success: function (result) {
+                            alert(result);
+                        },
+                        error: function (err) {
+                            alert(err.statusText);
+                        }
+                    });
+                } else {
+                    alert("FormData is not supported.");
+                }
+            });
+        });
+    </script>

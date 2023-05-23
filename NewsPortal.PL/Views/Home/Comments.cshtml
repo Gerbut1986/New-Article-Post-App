@@ -1,0 +1,93 @@
+﻿@model IEnumerable<NewsPortal.BLL.Dtos.CommentDto>
+@{
+    ViewBag.Title = "Comments";
+}
+
+<div style="font-family:'Times New Roman';font-weight:bold;text-align:left;margin-top:88px;color:darkblue">
+    <hr />
+    <h6>
+        <span>@ViewBag.WelcomeStr </span><span>!</span>
+    </h6>
+    <hr />
+</div>
+
+@{
+    var comments = Model;
+    var users = ViewBag.Users as List<NewsPortal.PL.Models.ApplicationUser>;
+    var im = ViewBag.CurrentUser as NewsPortal.PL.Models.ApplicationUser;
+    var uId = 0;
+    var aId = 0;
+}
+
+<div class="container">
+    <div class="header" style="text-align: center; font-family: 'Palatino Linotype'; color: green">
+        <h2>
+            <span style="padding:5px;background-color:lightgreen">Comments</span>
+            <span style="padding:5px;background-color:gold">
+                @comments.Count()
+            </span>
+        </h2>
+    </div>
+    <div class="row clearfix" style="width:60%;margin:auto">
+        <div class="col">
+            <div class="card">
+                <div class="body">
+                    <ul class="comment-reply list-unstyled">
+                        @foreach (var comment in comments)
+                        {
+
+                            var user = users.FirstOrDefault(n => n.UserId == comment.UserId);
+                            uId = user.UserId;
+                            aId = comment.ArticleId;
+                            string pic = user.Gender == "Male" ?
+                                "https://bootdey.com/img/Content/avatar/avatar7.png" :
+                                "https://bootdey.com/img/Content/avatar/avatar3.png";
+                            <li style="padding:9px" class="row clearfix">
+                                <div class="icon-box col-md-2 col-4">
+                                    <img class="img-fluid img-thumbnail" src="@pic" alt="Awesome Image">
+                                </div>
+                                <div class="text-box col-md-10 col-8 p-l-0 p-r0">
+                                    <h5 class="m-b-0">@user.FirstName&nbsp;@user.LastName</h5>
+                                    <p>
+                                        @comment.Text
+                                    </p>
+                                    <ul class="list-inline">
+                                        <li><a href="javascript:void(0);">@comment.Date_Created</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                @if (comment.UserId == im.UserId)
+                                {
+                                    <div class="col" style="text-align:right">
+                                        @Html.ActionLink("Remove", "Comment", "Delete",
+                                                new { idComment = comment.Id },
+                                                new { @class = "btn btn-danger" })
+                                    </div>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            @if (ViewBag.IsLogin == true)
+            {
+                <div class="row" style="text-align:center;">
+                    <div class="col">
+                        @Html.ActionLink("Leave a Comment", "Comment", "Create",
+                       new { idArticle = aId, userId = im.UserId },
+                       new { @class = "btn btn-success" })
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="row" style="text-align:center;margin-top:12px">
+        <hr />
+        <div class="col">
+            @Html.ActionLink("<-- Back to List of Articles", "Index", "Home", null,
+                 new { @class = "btn btn-default", style = "background-color:black;color:white" })
+        </div>
+    </div>
+</div>

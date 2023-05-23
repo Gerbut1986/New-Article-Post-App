@@ -1,0 +1,42 @@
+﻿@model NewsPortal.BLL.Dtos.CommentDto
+@{
+    ViewBag.Title = "Comment [Create]";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="container">
+        <div class="row clearfix" style="width:70%;margin:auto">
+            <h2 style="margin-top: 100px; text-align: center; font-family: 'Palatino Linotype'; color: darkblue">
+                Leave a reply<br /> <small style="text-align:center">Your email address will not be published. Required fields are marked*</small>
+            </h2>
+            <div class="card">
+                <div class="header">
+                    <h2></h2>
+                </div>
+                <div class="body">
+                    <div class="comment-form">
+                        <form class="row clearfix">
+                            @*<div class="col">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Your Name">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" value="@ViewBag.MyEmail" readonly>
+                                </div>
+                            </div>*@
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    @Html.TextAreaFor(model => Model.Text, new { placeholder = "Please type what you want...", @class = "form-control", rows = "8" })
+                                </div>
+                                <button type="submit" class="btn btn-block btn-primary">Leave</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

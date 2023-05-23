@@ -1,0 +1,66 @@
+﻿@model NewsPortal.BLL.Dtos.ArticleDto
+@{
+    ViewBag.Title = "Full Article";
+    NewsPortal.BLL.Dtos.ArticleDto article = Model;
+    string Path = "~/Images/News/" + article.Image_Url;
+    List<NewsPortal.BLL.Dtos.CommentDto> comments = ViewBag.Comments;
+}
+
+<h6 style="font-family:'Times New Roman';font-weight:bold;text-align:center;margin-top:88px;color:darkblue">
+    <span>Date of action:&nbsp;</span> @DateTime.UtcNow
+</h6>
+<div class="container">
+    <div class="row clearfix" style="width:70%;margin:auto">
+        <div class="col">
+            <div class="card single_post" style="padding:12px">
+                <div class="body" style="overflow:auto">
+                    <div class="img-post">
+                        <img class="d-block img-fluid" src="@Url.Content(Path)" alt="Image doesn't upload..'">
+                    </div>
+                    <h3 style="text-decoration:none;font-weight:bold;color:blue;font-family:'Palatino Linotype'">
+                        @article.Title
+                    </h3>
+                    <h4 style="font-family:'Times New Roman'">
+                        @article.Text
+                    </h4>
+
+                </div>
+                <div class="row">
+                    <div class="col" style="text-align:left;color:darkblue;font-weight:bold">
+                        @if (comments.Count() > 0)
+                        {
+                            @Html.ActionLink($"Comments: {comments.Where(a => a.ArticleId == article.Id).Count()}",
+                             "Comments", "Home", new { idArticle = article.Id }, new { style = "color:darkblue" })
+                        }
+                        else
+                        {
+                            <span>Comments:</span><span>&nbsp;0</span>
+                        }
+                    </div>
+                    <div class="col" style="text-align:right;font-weight:bold;color:darkred">
+                        <small style="">Creation date:</small>&nbsp;
+                        <small>@article.Date_Created</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (ViewBag.IsLogin == true)
+        {
+            <div class="row" style="text-align:center">
+                <div class="col">
+                    <hr />
+                    @Html.ActionLink("Remove", "Article", "Delete",
+                       new { id = article.Id }, new { @class = "btn btn-danger", style = "text-decoration:none" })
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="row" style="text-align:center;margin-top:12px">
+        <hr />
+        <div class="col">
+            @Html.ActionLink("<-- Back to List of Articles", "Index", "Home", null, 
+              new { @class = "btn btn-default", style = "background-color:black;color:white" })
+        </div>
+    </div>
+</div>

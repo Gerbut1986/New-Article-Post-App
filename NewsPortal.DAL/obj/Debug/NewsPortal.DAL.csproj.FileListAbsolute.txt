@@ -1,0 +1,12 @@
+C:\Users\ANDRE\Videos\Freelance\SocialChat (Asp .NET)\News Articles Platform\NewsPortal.DAL\bin\Debug\NewsPortal.DAL.dll.config
+C:\Users\ANDRE\Videos\Freelance\SocialChat (Asp .NET)\News Articles Platform\NewsPortal.DAL\bin\Debug\NewsPortal.DAL.dll
+C:\Users\ANDRE\Videos\Freelance\SocialChat (Asp .NET)\News Articles Platform\NewsPortal.DAL\bin\Debug\NewsPortal.DAL.pdb
+C:\Users\ANDRE\Videos\Freelance\SocialChat (Asp .NET)\News Articles Platform\NewsPortal.DAL\bin\Debug\EntityFramework.dll
+C:\Users\ANDRE\Videos\Freelance\SocialChat (Asp .NET)\News Articles Platform\NewsPortal.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\ANDRE\Videos\Freelance\SocialChat (Asp .NET)\News Articles Platform\NewsPortal.DAL\bin\Debug\EntityFramework.xml
+C:\Users\ANDRE\Videos\Freelance\SocialChat (Asp .NET)\News Articles Platform\NewsPortal.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\ANDRE\Videos\Freelance\SocialChat (Asp .NET)\News Articles Platform\NewsPortal.DAL\obj\Debug\NewsPortal.DAL.csproj.AssemblyReference.cache
+C:\Users\ANDRE\Videos\Freelance\SocialChat (Asp .NET)\News Articles Platform\NewsPortal.DAL\obj\Debug\NewsPortal.DAL.csproj.CoreCompileInputs.cache
+C:\Users\ANDRE\Videos\Freelance\SocialChat (Asp .NET)\News Articles Platform\NewsPortal.DAL\obj\Debug\NewsPortal.DAL.csproj.CopyComplete
+C:\Users\ANDRE\Videos\Freelance\SocialChat (Asp .NET)\News Articles Platform\NewsPortal.DAL\obj\Debug\NewsPortal.DAL.dll
+C:\Users\ANDRE\Videos\Freelance\SocialChat (Asp .NET)\News Articles Platform\NewsPortal.DAL\obj\Debug\NewsPortal.DAL.pdb

@@ -1,0 +1,67 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", id = "wlcm", @class = "nav-link" })
+            </li>
+            <li>
+                <a class="nav-link" id="logoff" href="javascript:document.getElementById('logoutForm').submit()">
+                    Log off
+                </a>
+            </li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="navbar-nav navbar-right">
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>
+    </ul>
+}
+
+<style>
+    ul li {
+        background-color: transparent;
+        font-family: 'Palatino Linotype'
+    }
+
+    #wlcm {
+        color: gold;
+    }
+
+    #loginLink {
+        color: lawngreen;
+        border: 0.4px solid lawngreen;
+    }
+
+        #loginLink:hover {
+            color: forestgreen;
+            border: 0.4px solid forestgreen;
+        }
+
+        #loginLink:active {
+            color: greenyellow;
+            border: 0.4px solid greenyellow;
+        }
+
+    #logoff {
+        border: 0.4px solid red;
+        border-radius: 5px;
+        color: red;
+    }
+
+        #logoff:hover {
+            border: 0.4px solid darkred;
+            color: darkred;
+        }
+
+        #logoff:active {
+            border: 0.4px solid darkgoldenrod;
+            color: darkgoldenrod;
+        }
+</style>

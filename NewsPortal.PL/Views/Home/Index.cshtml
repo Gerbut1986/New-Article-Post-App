@@ -1,0 +1,103 @@
+﻿@model IEnumerable<NewsPortal.BLL.Dtos.ArticleDto>
+@{
+    ViewBag.Title = "Main Page";
+}
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<div style="font-family:'Times New Roman';font-weight:bold;text-align:left;margin-top:88px;color:darkblue">
+    @if (ViewBag.UserId != 0)
+    {
+        <hr />
+        <h6>
+            <span> @ViewBag.WelcomeStr </span>
+        </h6>
+        <hr />
+    }
+</div>
+
+@using (Html.BeginForm())
+{
+    var comments = ViewBag.Comments as List<NewsPortal.BLL.Dtos.CommentDto>;
+    <div class="container">
+        @foreach (var article in Model)
+        {
+            string Path = "~/Images/News/" + article.Image_Url;
+            <div class="row clearfix" style="width:70%;margin:auto">
+                <div class="col">
+                    <div class="card single_post" style="padding:12px">
+                        <div class="body" style="overflow:auto">
+                            <div class="img-post">
+                                <img style="background-size:cover" class="d-block img-fluid" src="@Url.Content(Path)" alt="Image doesn't upload..'">
+                            </div>
+                            <h3>
+                                <a style="text-decoration:none;font-weight:bold;color:blue;
+                                          font-family:'Palatino Linotype'"
+                                   href="/Home/FullArticle?id=@article.Id">
+                                    @article.Title
+                                </a>
+                            </h3>
+                            @{
+                                if (article.Text.Count() < 222)
+                                {
+                                    <h4 style="font-family:'Times New Roman'">
+                                        @article.Text
+                                    </h4>
+                                }
+                                else
+                                {
+                                    <h4 style="font-family:'Times New Roman'">
+                                        @article.Text.Substring(0, 222)
+                                        @Html.ActionLink("...", "FullArticle", "Home", new { id = article.Id }, new { style = "font-size:xx-large" })
+                                    </h4>
+                                }
+                            }
+                        </div>
+                        <div class="row">
+                            <div class="col" style="text-align:left;color:darkblue;font-weight:bold">
+                                @if (comments.Where(a => a.ArticleId == article.Id).Count() > 0)
+                                {
+                                    @Html.ActionLink($"Comments: {comments.Where(a => a.ArticleId == article.Id).Count()}", "Comments", "Home",
+                                       new { idArticle = article.Id }, new { style = "color:darkblue" })
+                                }
+                                else
+                                {
+                                    <span>Comments:</span><span>&nbsp;0</span>
+                                }
+                            </div>
+                            @if (article.UserId == ViewBag.UserId)
+                            {
+                                <div class="col" style="text-align:center;color:red;font-weight:bold">
+                                    @Html.ActionLink("Remove", "Article", "Delete",
+                                       new { id = article.Id }, new { style = "text-decoration:none" })
+                                </div>
+                            }
+                            <div class="col" style="text-align:right;font-weight:bold;color:darkred">
+                                @*<small style="">Creation date:</small>&nbsp;*@
+                                <small>@article.Date_Created</small>
+                            </div>
+                        </div>
+                        @if (ViewBag.IsLogin == true)
+                        {
+                            <div style="text-align:center">
+                                @Html.ActionLink("Leave A Comment", "Comment", "Create",
+                                  new { idArticle = article.Id, userId = ViewBag.UserId, userEmail = ViewBag.MyEmail },
+                                  new { @class = "btn btn-default", style = "color:magenta" })
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        @if (ViewBag.IsLogin == true)
+        {
+            <hr />
+            <div class="row" style="text-align:center">
+                <div class="col">
+                    @Html.ActionLink("Create News Articles", "Article", "Create",
+                          new { userId = ViewBag.UserId }, new { @class = "btn btn-success" })
+                </div>
+            </div>
+        }
+    </div>
+}
